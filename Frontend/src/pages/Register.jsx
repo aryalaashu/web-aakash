@@ -9,6 +9,54 @@ const Register = () => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password,setPassword] = useState('')
+  const [confirmPassword, setconfirmPassword]= useState('')
+
+
+  //usestate(setting erroe message)
+  const[fnameerror, setFnameError] = useState('')
+  const[lnameerror, setLnameError] = useState('')
+  const[emailerror, setEmailError] = useState('')
+  const[passworderror, setPasswordError] = useState('') 
+  const[cpassworderror, setCpasswordError] = useState('') 
+
+  // validate input value
+
+  const Validate = ()=>{
+    let isValid = true
+
+    // reset error message
+    setFnameError('')
+    setLnameError('')
+    setEmailError('')
+    setPasswordError('')
+    setCpasswordError('')
+
+    if(firstName.trim()===""){
+      setFnameError("First Name is Required")
+      isValid = false
+    }
+    if(lastName.trim()===""){
+      setLnameError("Last Name is Required")
+      isValid = false
+    }if(email.trim()===""){
+      setEmailError("Email is Required")
+      isValid = false
+    }
+    if(password.trim()===""){
+      setPasswordError("Password is Required")
+      isValid = false
+    }
+    if(confirmPassword.trim()===""){
+      setCpasswordError("Password is Required")
+      isValid = false
+    }
+
+    if(password.trim()!== confirmPassword.trim()){
+      setCpasswordError("Password doesnot match")
+      isValid= false
+    }
+    return isValid
+  }
 
   // function for changing input value
   const changeFirstname = (e) => {
@@ -27,12 +75,20 @@ const Register = () => {
     setPassword(e.target.value)
   }
 
+  const changeconfirmPassword = (e) => {
+    setconfirmPassword(e.target.value)
+  }
+
   // function for button
   const handleSubmit = (e) => {
     e.preventDefault()
     // check if input value is available
-    console.log(firstName, lastName, email, password)
+    // validate the data
+    const isValid = Validate()
 
+    if(!isValid){
+      return
+    }
     // making json data object
     const data = {
       firstName : firstName,
@@ -52,9 +108,6 @@ const Register = () => {
       toast.error("Server Error")
       console.log(err.message)
     })
-
-
-
   }
 
   return (
@@ -64,15 +117,29 @@ const Register = () => {
       <form className='m-4 w-25'>
         <label>Firstname</label>
         <input onChange={changeFirstname} type="text" className='form-control mb-2' placeholder='Enter your firstname' />
-
+        {
+          fnameerror&& <p className='text-danger'>{fnameerror}</p>
+        }
         <label>Lastname</label>
         <input onChange={changeLastname} type="text" className='form-control mb-2' placeholder='Enter your lastname' />
-
+        {
+          lnameerror&& <p className='text-danger'>{lnameerror}</p>
+        }
         <label>Email Address</label>
         <input onChange={changeEmail} type="email" className='form-control mb-2' placeholder='Enter your email' />
-
+        {
+          emailerror&& <p className='text-danger'>{emailerror}</p>
+        }
         <label>Password</label>
         <input onChange={changePassword} type="password" className='form-control mb-2' placeholder='Enter your password' />
+        {
+          passworderror&& <p className='text-danger'>{passworderror}</p>
+        }
+        <label>Confirm Password{confirmPassword}</label>
+        <input onChange={changeconfirmPassword} type="password" className='form-control mb-2' placeholder='Enter your password' />
+        {
+          cpassworderror&& <p className='text-danger'>{cpassworderror}</p>
+        }
 
         <button onClick={handleSubmit} className='btn btn-danger w-100'>Create an Account</button>
 

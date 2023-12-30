@@ -9,11 +9,11 @@ const Api = axios.create({
 })
 
 // make seperate header for authorization
+const token = localStorage.getItem('token')
 
 const config = {
     headers:{
-        'authorization' : `Bearer ${localStorage.getItem('token')}`
-
+        'authorization' : `Bearer ${token}`
     }
 }
 

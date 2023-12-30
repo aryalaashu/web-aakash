@@ -27,10 +27,10 @@ function App() {
           <Route path='/proile' element = {<h1>Profile Page</h1>}>
         </Route>
         </Route>
-
         <Route element={<AdminRoutes />}>
           {/* Admin routes */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+         
 
           {/* Edit product */}
           <Route path="/admin/edit/:id" element={<AdminEditProduct />} />

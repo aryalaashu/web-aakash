@@ -66,7 +66,7 @@ const Login = () => {
 
                 <label>Password</label>
                 <input onChange={(e) => setPassword(e.target.value)} className='form-control mb-2' type="password" placeholder='Enter your password' />
-
+        
                 <button onClick={handleSubmit} className='btn btn-primary w-100'>Submit</button>
             </form>
         </div>
